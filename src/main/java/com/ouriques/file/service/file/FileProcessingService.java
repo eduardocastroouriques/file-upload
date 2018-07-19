@@ -20,7 +20,7 @@ public class FileProcessingService {
 
     private static final Logger logger = LoggerFactory.getLogger(FileProcessingService.class);
 
-    private final String in = "./uploads/";
+    private final String in = "./in/";
 
     @Autowired
     public SaleManService saleManService;
