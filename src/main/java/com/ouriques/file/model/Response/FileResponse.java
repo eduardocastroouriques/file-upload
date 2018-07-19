@@ -1,4 +1,4 @@
-package com.ouriques.file.model;
+package com.ouriques.file.model.Response;
 
 
 public class FileResponse {

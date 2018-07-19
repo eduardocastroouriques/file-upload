@@ -1,7 +1,7 @@
 package com.ouriques.file.controller;
 
-import com.ouriques.file.model.FileResponse;
-import com.ouriques.file.service.FileService;
+import com.ouriques.file.model.Response.FileResponse;
+import com.ouriques.file.service.file.FileManagerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -25,33 +24,20 @@ public class FileController {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     @Autowired
-    private FileService fileService;
+    private FileManagerService fileManagerService;
 
     @PostMapping("/upload")
     public List<FileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
         return Arrays.asList(files)
                 .stream()
-                .map(file -> fileService.processFile(file))
+                .map(file -> fileManagerService.saveAndProccess(file))
                 .collect(Collectors.toList());
-    }
-
-    private FileResponse uploadFile(@RequestParam("file") MultipartFile file) {
-
-        String fileName = fileService.storeFile(file);
-
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-
-        return new FileResponse(fileName, fileDownloadUri,
-                file.getContentType(), file.getSize());
     }
 
     @GetMapping("/downloadFile/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
 
-        Resource resource = fileService.loadFileAsResource(fileName);
+        Resource resource = fileManagerService.loadFileAsResource(fileName);
 
         String contentType = null;
 

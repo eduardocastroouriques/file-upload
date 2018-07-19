@@ -11,5 +11,4 @@ public class BusinessConstant {
     public static String ITEM_SEPARATOR = "-";
     public static String ITEM_OBJECT_SEPARATOR = ",";
 
-
 }

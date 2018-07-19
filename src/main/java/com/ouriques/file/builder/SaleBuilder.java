@@ -11,8 +11,9 @@ public class SaleBuilder {
 
         Sale sale = new Sale();
 
-        sale.setSaleId(splittedData[1]);
-        sale.setItem(new ItemBuilder().parse(splittedData[2]));
+        sale.setType(splittedData[0]);
+        sale.setId(Integer.parseInt(splittedData[1]));
+        sale.setItems(new ItemBuilder().parse(splittedData[2]));
         sale.setSalesManName(splittedData[3]);
 
         return sale;

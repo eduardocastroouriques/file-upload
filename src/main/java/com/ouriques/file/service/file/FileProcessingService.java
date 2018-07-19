@@ -1,6 +1,10 @@
-package com.ouriques.file.service;
+package com.ouriques.file.service.file;
 
 import com.ouriques.file.common.BusinessConstant;
+import com.ouriques.file.service.customer.CustomerService;
+import com.ouriques.file.service.report.ReportService;
+import com.ouriques.file.service.sale.SaleService;
+import com.ouriques.file.service.saleMan.SaleManService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +23,16 @@ public class FileProcessingService {
     private final String in = "./uploads/";
 
     @Autowired
-    public SalesManService salesManService;
+    public SaleManService saleManService;
 
     @Autowired
     public CustomerService customerService;
 
     @Autowired
     public SaleService saleService;
+
+    @Autowired
+    private ReportService reportService;
 
     @Autowired
     public FileProcessingService() {
@@ -40,8 +47,7 @@ public class FileProcessingService {
             e.printStackTrace();
         }
 
-
-        String t = "";
+        reportService.build(fileName);
 
     }
 
@@ -50,7 +56,7 @@ public class FileProcessingService {
         try {
 
             if(data.contains(BusinessConstant.SALES_MAN_ID)){
-                salesManService.process(data);
+                saleManService.process(data);
             }else if(data.contains(BusinessConstant.CUSTOMER_ID)){
                 customerService.process(data);
             }else if(data.contains(BusinessConstant.SALE_ID)){
@@ -62,7 +68,6 @@ public class FileProcessingService {
         }catch (Exception e){
             logger.error(e.getMessage());
         }
-
 
     }
 }

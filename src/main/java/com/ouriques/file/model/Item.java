@@ -1,22 +1,46 @@
 package com.ouriques.file.model;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "item")
 public class Item {
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id;
+
+    @Column
+    private String itemId;
+
+    @Column
     private Integer quantity;
+
+    @Column
     private BigDecimal price;
+
+    @ManyToOne
+    @JoinColumn(name = "sale_id")
+    private Sale sale;
 
     public Item() {
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 
     public Integer getQuantity() {
@@ -33,5 +57,13 @@ public class Item {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Sale getSale() {
+        return sale;
+    }
+
+    public void setSale(Sale sale) {
+        this.sale = sale;
     }
 }

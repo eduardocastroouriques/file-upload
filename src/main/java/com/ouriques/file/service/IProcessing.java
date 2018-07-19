@@ -1,6 +1,6 @@
 package com.ouriques.file.service;
 
-public interface IFileService {
+public interface IProcessing {
 
     void process(String data) throws Exception;
 

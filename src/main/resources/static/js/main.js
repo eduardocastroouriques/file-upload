@@ -19,10 +19,7 @@ function uploadMultipleFiles(files) {
         var response = JSON.parse(xhr.responseText);
         if(xhr.status == 200) {
             multipleFileUploadError.style.display = "none";
-            var content = "<p>Todos arquivos foram processados corretamente!</p>";
-            for(var i = 0; i < response.length; i++) {
-                content += "<p>DownloadUrl : <a href='" + response[i].fileDownloadUri + "' target='_blank'>" + response[i].fileDownloadUri + "</a></p>";
-            }
+            var content = "<p>Todos arquivos foram processados corretamente e o relatório se encontra na pasta 'out'.</p>";
             multipleFileUploadSuccess.innerHTML = content;
             multipleFileUploadSuccess.style.display = "block";
         } else {

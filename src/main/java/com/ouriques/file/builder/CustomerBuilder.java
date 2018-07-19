@@ -11,6 +11,7 @@ public class CustomerBuilder {
 
         Customer customer = new Customer();
 
+        customer.setType(splittedData[0]);
         customer.setCnpj(splittedData[1]);
         customer.setName(splittedData[2]);
         customer.setBusinessArea(splittedData[3]);

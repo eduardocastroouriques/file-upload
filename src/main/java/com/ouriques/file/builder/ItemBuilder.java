@@ -4,17 +4,19 @@ import com.ouriques.file.common.BusinessConstant;
 import com.ouriques.file.model.Item;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemBuilder {
 
-    public Item[] parse(String data) {
+    public List<Item> parse(String data) {
 
         data = data.replaceAll("\\[", "");
         data = data.replaceAll("\\]", "");
 
         String[] splittedData = data.split(BusinessConstant.ITEM_OBJECT_SEPARATOR);
 
-        Item[] items = new Item[splittedData.length];
+        List<Item> items = new ArrayList<Item>(splittedData.length);
 
         for (int i = 0; i < splittedData.length; i++) {
 
@@ -22,11 +24,11 @@ public class ItemBuilder {
 
             Item newItem = new Item();
 
-            newItem.setId(splittedItem[0]);
+            newItem.setId(Integer.parseInt(splittedItem[0]));
             newItem.setQuantity(new Integer(splittedItem[1]));
             newItem.setPrice(new BigDecimal(splittedItem[2]));
 
-            items[i] = newItem;
+            items.add(newItem);
         }
 
         return items;

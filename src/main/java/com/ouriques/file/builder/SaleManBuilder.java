@@ -13,6 +13,7 @@ public class SaleManBuilder {
 
         SaleMan saleMan = new SaleMan();
 
+        saleMan.setType(splittedData[0]);
         saleMan.setCpf(splittedData[1]);
         saleMan.setName(splittedData[2]);
         saleMan.setSalary(new BigDecimal(splittedData[3]));
